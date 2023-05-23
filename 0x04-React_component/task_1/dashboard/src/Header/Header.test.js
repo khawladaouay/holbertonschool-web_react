@@ -1,25 +1,20 @@
-import React from 'react';
-import { expect } from 'chai';
-import Header from './Header.js';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from "enzyme";
+import React from "react";
+import Header from "./Header";
 
-Enzyme.configure({ adapter: new Adapter() });
-// to run all tests, please type "npm run test a" in the command line
-const wrapper = shallow(<Header/>);
-
-describe('my Header component', () => {
-  it('renders without crashing', () => {
-    expect(wrapper).to.have.length(1);
+describe("<Header />", () => {
+  it("Header renders without crashing", () => {
+    const wrapper = shallow(<Header />);
+    expect(wrapper.exists()).toEqual(true);
   });
-
-  it('renders an img', () => {
-    const img = wrapper.find('img');
-    expect(img).to.have.length(1);
+  it("Verify that the components render img", () => {
+    const wrapper = shallow(<Header />);
+    wrapper.update();
+    expect(wrapper.find("div.header img")).toHaveLength(1);
   });
-
-  it('renders a h1', () => {
-    const h1 = wrapper.find('h1');
-    expect(h1).to.have.length(1);
+  it("Verify that the components render h1", () => {
+    const wrapper = shallow(<Header />);
+    wrapper.update();
+    expect(wrapper.find("div.header h1")).toHaveLength(1);
   });
 });

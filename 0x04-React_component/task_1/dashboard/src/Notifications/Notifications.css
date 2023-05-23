@@ -1,28 +1,31 @@
-.notification-section {
-  height: 300px;
+:root {
+  --main-color: #e01d3f;
 }
+
+.menuItem {
+  text-align: right;
+}
+
 .Notifications {
-    border: 1px dashed #d73953;
-    padding: 15px;
-    font-size: 27px;
-    width: 30%;
-    float: right;
-    top: 60px;
-    left: 200px;
+  float: right;
+  border: 3px dashed var(--main-color);
+  padding: 10px;
+  margin-bottom: 20px;
 }
-[data-notification-type= "default"] {
+
+.Notifications button img {
+  width: 10px;
+}
+
+.Notifications p {
+  margin: 0;
+  margin-top: 15px;
+}
+
+[data-notification-type="default"] {
   color: blue;
 }
- [data-notification-type="urgent"] {
-   color: red;
- }
 
- div.menuItem {
-     font-size: larger;
-     margin: 30px;
-     margin-right: 50px;
-     text-align: end;
- }
-.Notifications button {
-  top: 95px !important;
+[data-notification-type="urgent"] {
+  color: red;
 }

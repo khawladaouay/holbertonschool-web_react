@@ -1,48 +1,30 @@
-import React from 'react';
-import { expect } from 'chai';
-import NotificationItem from './NotificationItem';
-import Enzyme, { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from "enzyme";
+import React from "react";
+import NotificationItem from "./NotificationItem";
 
-Enzyme.configure({ adapter: new Adapter() });
-// to run all tests, please type "npm run test a" in the command line
-const props1 = {
-  type: "default",
-  value: "test",
-};
-
-const wrapper = mount(<NotificationItem {...props1}/>);
-
-describe('my NotificationItem component', () => {
-  it('renders without crashing', () => {
-    expect(wrapper).to.have.length(1);
+describe("<Notifications />", () => {
+  it("NotificationItem renders without crashing", () => {
+    const wrapper = shallow(<NotificationItem />);
+    expect(wrapper.exists()).toEqual(true);
   });
+  it("Verify that by passing dummy type and value props, it renders the correct html", () => {
+    const wrapper = shallow(<NotificationItem type="default" value="test" />);
+    wrapper.update();
+    const listItem = wrapper.find("li");
 
-  it('has type=default', () => {
-    expect(wrapper.prop('type')).to.equal('default');
+    expect(listItem).toHaveLength(1);
+    expect(listItem.text()).toEqual("test");
+    expect(listItem.prop("data-notification-type")).toEqual("default");
   });
-
-  it('has value=test', () => {
-    expect(wrapper.prop('value')).to.equal('test');
+  it("Passing a dummy html prop, it renders the correct html (for example", () => {
+    const text = "Here is the list of notifications";
+    const wrapper = shallow(
+      <NotificationItem html={{ __html: "<u>test</u>" }} />
+    );
+    wrapper.update();
+    const listItem = wrapper.find("li");
+    expect(listItem.html()).toEqual(
+      '<li data-notification-type="default"><u>test</u></li>'
+    );
   });
-
-});
-
-
-const props2 = {
-  type: "urgent",
-  html: {__html: '<u>test</u>' }
-};
-const wrapper2 = mount(<NotificationItem {...props2}/>);
-
-describe('my NotificationItem component', () => {
-
-  it('has type=default', () => {
-    expect(wrapper2.prop('type')).to.equal('urgent');
-  });
-
-  it('has html: {__html: \'<u>test</u>\' }', () => {
-    expect(JSON.stringify(wrapper2.prop('html'))).to.equal(JSON.stringify({__html: '<u>test</u>' }));
-  });
-
 });

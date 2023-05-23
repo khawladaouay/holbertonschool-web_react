@@ -1,46 +1,43 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require("path");
+
 module.exports = {
-  entry: './src/index.js',
+  mode: "development",
+  devtool: "inline-source-map",
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: "bundle.js",
+    path: path.resolve("./dist"),
   },
-  mode: 'development',
-  devtool: 'inline-source-map',
   devServer: {
     hot: true,
-    contentBase: path.resolve(__dirname, 'dist')
+    contentBase: path.resolve("./dist"),
+    compress: true,
+    port: 8564,
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      hash: true,
-      inject: true,
-      title: 'Holberton Dashboard',
-      template: './dist/index.html',
-    }),
-  ],
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
-          'style-loader',
-          'css-loader'
-        ]
+          "file-loader",
+          {
+            loader: "image-webpack-loader",
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          },
+        ],
       },
-      {
-        test: /\.(jpg|jpeg|png|gif|svg)$/,
-        type: 'asset/resource',
-        loader: 'image-webpack-loader'
-      }
-    ]
-  }
+    ],
+  },
 };

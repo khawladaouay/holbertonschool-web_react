@@ -1,19 +1,16 @@
-import React from 'react';
-import { expect } from 'chai';
-import Footer from './Footer.js';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from "enzyme";
+import React from "react";
+import Footer from "./Footer";
 
-Enzyme.configure({ adapter: new Adapter() });
-// to run all tests, please type "npm run test a" in the command line
-const wrapper = shallow(<Footer/>);
-
-describe('my Footer component', () => {
-  it('renders without crashing', () => {
-    expect(wrapper).to.have.length(1);
+describe("<Footer />", () => {
+  it("Footer renders without crashing", () => {
+    const wrapper = shallow(<Footer />);
+    expect(wrapper.exists()).toEqual(true);
   });
-
-  it('renders the text Copyright', () => {
-    expect(wrapper.text()).include('Copyright');
+  it("Verify that the components at the very least render the text “Copyright”", () => {
+    const wrapper = shallow(<Footer />);
+    wrapper.update();
+    expect(wrapper.find("div.footer p")).toHaveLength(1);
+    expect(wrapper.find("div.footer p").text()).toContain("Copyright");
   });
 });

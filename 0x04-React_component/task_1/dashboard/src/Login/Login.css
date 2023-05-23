@@ -1,9 +1,12 @@
-.App-body {
-  font-size: 27px;
-  margin: 50px;
-  min-height: 40vh;
+:root {
+  --main-color: #e01d3f;
 }
-.App-body input {
+
+.login {
+  margin: 50px;
+  flex-grow: 1;
+}
+.login input {
+  margin-left: 10px;
   margin-right: 20px;
-  margin-left: 20px;
 }
